@@ -1,12 +1,16 @@
 import { Box, Button, CircularProgress, MenuItem, Select, Snackbar } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import BlockView from '../../components/BlockView';
-import RenderBadge from '../../components/RenderBadge';
+
 
 type Data = {
   status: 'DRAFT' | 'DELETED' | 'PUBLISHED',
   items: string[];
 };
+
+const syncDataAPI = (_items: string[]) => new Promise((resolve) => {
+  setTimeout(resolve, 2000);
+})
 
 type Props = {
   data: Data;
@@ -23,7 +27,17 @@ const Receiver = (props: Props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 2000);
+    // Так как асинхронная функция возвращает промис, мы не можем сделать асинзхронной функцию 
+    // передаваемую в useEffect, так как useEffect ожидает что из колбэка вернется функция cleanUp,
+    // а не промис или другое какое либо другое значение. 
+    // Если нам необходимо сделать что-то асинхронно в useEffect,
+    // можно создать async функцию прямо внутри и вызвать её. 
+    // Либо использовать синтаксиси промисов .then()
+    const syncData = async () => {
+      await syncDataAPI(data.items);
+      setIsLoading(false);
+    }
+    syncData();
   }, [data.items.length])
 
 
@@ -34,7 +48,7 @@ const Receiver = (props: Props) => {
   return (
     <Box>
       <BlockView>
-        {data.items.map((text) => <div>{text}</div>)}
+        {data.items.map((text) => <div key={text}>{text}</div>)}
       </BlockView>
       <BlockView>
         {isLoading && (<CircularProgress />)}
