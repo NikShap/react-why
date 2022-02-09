@@ -3,7 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { TabType } from '../../types/global';
+import { TabType } from '../types/global';
 import { Divider } from '@mui/material';
 
 export type VerticalTabsProps = {
@@ -41,7 +41,13 @@ const VerticalTabs = (props: VerticalTabsProps) => {
           <Tab
             label={tab.label}
             key={tab.label}
-            sx={{ textTransform: 'none' }}
+            sx={{
+              textTransform: 'none',
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: '18px',
+              borderBottom: '1px grey dashed'
+            }}
           />
         ))}
       </Tabs>

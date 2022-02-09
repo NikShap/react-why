@@ -1,22 +1,47 @@
 import * as React from 'react'
 import './App.css'
 import { VerticalTabs } from './components'
-import { UseRef } from './pages'
+import UseEffect from './pages/UseEffect'
+import UseRef from './pages/UseRef'
 import UseState from './pages/UseState'
 import { TabType } from './types/global'
 
 const tabs: TabType[] = [
 	{
 		label: 'useRef',
-		node: <UseRef></UseRef>
+		node: <UseRef />
 	},
 	{
 		label: 'useState',
-		node: <UseState></UseState>
+		node: <UseState />
 	},
 	{
 		label: 'useEffect',
-		node: <div>description useEffect</div>
+		node: <UseEffect />
+	},
+	{
+		label: 'useCallback',
+		node: ''
+	},
+	{
+		label: 'useMemo',
+		node: ''
+	},
+	{
+		label: 'useLayoutEffect',
+		node: ''
+	},
+	{
+		label: 'useImperativeHandle',
+		node: ''
+	},
+	{
+		label: 'useContext',
+		node: ''
+	},
+	{
+		label: 'useReducer',
+		node: ''
 	},
 ]
 
