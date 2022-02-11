@@ -4,9 +4,14 @@ import { VerticalTabs } from './components'
 import UseEffect from './pages/UseEffect'
 import UseRef from './pages/UseRef'
 import UseState from './pages/UseState'
+import UseCallback from './pages/UseCallback'
 import { TabType } from './types/global'
 
 const tabs: TabType[] = [
+	{
+		label: 'useCallback',
+		node: <UseCallback />
+	},
 	{
 		label: 'useRef',
 		node: <UseRef />
@@ -20,27 +25,7 @@ const tabs: TabType[] = [
 		node: <UseEffect />
 	},
 	{
-		label: 'useCallback',
-		node: ''
-	},
-	{
-		label: 'useMemo',
-		node: ''
-	},
-	{
-		label: 'useLayoutEffect',
-		node: ''
-	},
-	{
-		label: 'useImperativeHandle',
-		node: ''
-	},
-	{
 		label: 'useContext',
-		node: ''
-	},
-	{
-		label: 'useReducer',
 		node: ''
 	},
 ]

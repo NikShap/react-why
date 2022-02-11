@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BlockView from '../../components/BlockView';
 import RenderBadge from '../../components/RenderBadge';
 import RenderTrigger from '../../components/RenderTrigger';
-import slowFunction from './slowFunction';
+import slowFunction from '../../utils/slowFunction';
 
 export default () => {
   const [state, setState] = useState(1);

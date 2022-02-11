@@ -13,8 +13,7 @@ export default forwardRef<HTMLDivElement, PaperProps>(({ children, sx, ...otherP
     <Paper {...otherProps}
       elevation={2}
       component='div'
-      // variant='outlined'
-      sx={sx ? { ...sx, ...blockSx } : blockSx}
+      sx={sx ? { ...blockSx, ...sx } : blockSx}
       ref={ref}
     >
       {children}
