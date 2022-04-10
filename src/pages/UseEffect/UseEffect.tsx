@@ -1,11 +1,7 @@
-import { Box, Divider, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
-import BlockView from '../../components/BlockView';
-import RenderTrigger from '../../components/RenderTrigger';
+import { Box, Divider } from '@mui/material';
+import React from 'react';
 
-import useForceRender from '../../hooks/useForceRender';
-import CleanUpDemo from './CleanUpDemo';
-import PropsDemo from './PropsDemo';
+import { CleanUpDemo, PropsDemo } from './components';
 
 export default () => {
   return (

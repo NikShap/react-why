@@ -1,4 +1,4 @@
-export default (iterations: number = 3000000) => {
+const slowDownFunction = (iterations: number = 3000000) => {
   const initialArray = [];
 
   for (let index = 0; index < iterations; index++) {
@@ -7,3 +7,5 @@ export default (iterations: number = 3000000) => {
 
   return initialArray;
 }
+
+export default slowDownFunction;

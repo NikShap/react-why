@@ -1,13 +1,13 @@
 import React, { RefObject } from 'react';
-import BlockView from '../../components/BlockView';
+import BlockView from '../../../components/BlockView';
+import { BaseBlockPropsType } from '../../../types';
 
-import { BaseBlockPropsType } from '../../types/useRef';
-
+type Props = BaseBlockPropsType<{ customRef1: RefObject<any>, customRef2: RefObject<any> }>
 // Может возникнуть ситуация, когда необходимо получить доступ к двум элементам расположенным внутри компонента.
 // в таком случае можно использовать свои собственные props
-export default ({ children, customRef1, customRef2 }: BaseBlockPropsType<{ customRef1: RefObject<any>, customRef2: RefObject<any> }>) => {
+export default ({ children, customRef1, customRef2 }: Props) => {
   return (
-    <BlockView>
+    <BlockView withRenderBadge>
       <div ref={customRef1}></div>
       <span ref={customRef2}></span>
       {children}

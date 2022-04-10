@@ -5,7 +5,9 @@ import UseEffect from './pages/UseEffect'
 import UseRef from './pages/UseRef'
 import UseState from './pages/UseState'
 import UseCallback from './pages/UseCallback'
-import { TabType } from './types/global'
+import { TabType } from './types'
+import UseContext from './pages/UseContext'
+import UseLayoutEffect from './pages/UseLayoutEffect'
 
 const tabs: TabType[] = [
 	{
@@ -26,8 +28,12 @@ const tabs: TabType[] = [
 	},
 	{
 		label: 'useContext',
-		node: ''
+		node: <UseContext />
 	},
+	{
+		label: 'useLayoutEffect',
+		node: <UseLayoutEffect />
+	}
 ]
 
 export default function App() {

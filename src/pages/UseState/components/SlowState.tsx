@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import BlockView from '../../components/BlockView';
-import RenderBadge from '../../components/RenderBadge';
-import RenderTrigger from '../../components/RenderTrigger';
-import slowFunction from '../../utils/slowFunction';
+import BlockView from '../../../components/BlockView';
+import RenderBadge from '../../../components/RenderBadge';
+import RenderTrigger from '../../../components/RenderTrigger';
+import slowFunction from '../../../utils/slowDownFunction';
 
 export default () => {
   const [state, setState] = useState(1);
@@ -23,7 +23,7 @@ export default () => {
 
   return (
     <>
-      <RenderTrigger forceRender={handleClick}> [{state}]</RenderTrigger>
+      <RenderTrigger forceRender={handleClick}> [slow]</RenderTrigger>
       <RenderBadge>
         <BlockView>
           {complexState[0]}, {complexState[1]}

@@ -1,37 +1,17 @@
 import React, { useState } from 'react';
-import { Divider, SxProps } from '@mui/material';
+import { Divider, Switch } from '@mui/material';
 
 import BlockView from '../../components/BlockView';
-import RenderBadge from '../../components/RenderBadge';
-import Input from './Input';
-import TaskView from './TaskView';
+import useSwitchState from '../../hooks/useSwitchState';
+import { Task } from '../../types';
 
-const mainBlockSx: SxProps = {
-  width: '400px',
-}
-
-const dividerSx: SxProps = {
-  margin: '20px 0',
-}
-
-const listSx: SxProps = {
-  display: 'flex',
-  width: 'unset',
-  flexDirection: 'column',
-}
-
-type Task = {
-  text: string;
-  id: number;
-}
-
-const initialTasks: Task[] = [
-  { text: 'Задача 1', id: Date.now() },
-  { text: 'Задача 2', id: Date.now() + 100 },
-]
+import { TaskInput, TaskView } from './components';
+import { useCallbackView } from './style';
+import { initialTasks } from '../../mockData';
 
 const UseCallback = () => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [isSwitched, handleSwitchEvent] = useSwitchState();
 
   const handleEnterPress = (taskText: string) => {
     setTasks([
@@ -48,22 +28,93 @@ const UseCallback = () => {
   }
 
   return (
-    <RenderBadge>
-      <BlockView sx={mainBlockSx}>
-        <Input onEnter={handleEnterPress} />
-        <Divider sx={dividerSx} />
-        <BlockView sx={listSx}>
-          {tasks.map(task => (
-            <TaskView
-              key={task.id}
-              onDelete={handleDeleteTask}
-              {...task}
-            />
-          ))}
-        </BlockView>
+    <BlockView
+      withRenderBadge
+      width={500}
+    >
+      <TaskInput onEnter={handleEnterPress} />
+      <Switch onChange={handleSwitchEvent} />
+      <Divider sx={useCallbackView.dividerSx} />
+      <BlockView sx={useCallbackView.listSx}>
+        {tasks.map(task => (
+          <TaskView
+            key={task.id}
+            onDelete={handleDeleteTask}
+            isSlowedDown={isSwitched}
+            {...task}
+          />
+        ))}
       </BlockView>
-    </RenderBadge>
+    </BlockView>
   )
 };
 
 export default UseCallback;
+
+// https://github.com/facebook/react/blob/e0160d50c5a492a925db6ab3f8478e118336c722/packages/react-reconciler/src/ReactFiberHooks.new.js#L1899
+//
+// function mountMemo<T>(
+//   nextCreate: () => T,
+//   deps: Array<mixed> | void | null,
+// ): T {
+//   const hook = mountWorkInProgressHook();
+//   const nextDeps = deps === undefined ? null : deps;
+//   const nextValue = nextCreate();
+//   hook.memoizedState = [nextValue, nextDeps];
+//   return nextValue;
+// }
+
+// https://github.com/facebook/react/blob/e0160d50c5a492a925db6ab3f8478e118336c722/packages/react-reconciler/src/ReactFiberHooks.new.js#L1876
+//
+// function mountCallback<T>(
+//   callback: T,
+//   deps: Array<mixed> | void | null
+// ): T {
+//   const hook = mountWorkInProgressHook();
+//   const nextDeps = deps === undefined ? null : deps;
+//   hook.memoizedState = [callback, nextDeps];
+//   return callback;
+// }
+
+// https://github.com/facebook/react/blob/e0160d50c5a492a925db6ab3f8478e118336c722/packages/react-reconciler/src/ReactFiberHooks.new.js#L1910
+//
+// function updateMemo<T>(
+//   nextCreate: () => T,
+//   deps: Array<mixed> | void | null,
+// ): T {
+//   const hook = updateWorkInProgressHook();
+//   const nextDeps = deps === undefined ? null : deps;
+//   const prevState = hook.memoizedState;
+//   if (prevState !== null) {
+//     if (nextDeps !== null) {
+//       const prevDeps: Array<mixed> | null = prevState[1];
+//       if (areHookInputsEqual(nextDeps, prevDeps)) {
+//         return prevState[0];
+//       }
+//     }
+//   }
+//   const nextValue = nextCreate();
+//   hook.memoizedState = [nextValue, nextDeps];
+//   return nextValue;
+// }
+
+// https://github.com/facebook/react/blob/e0160d50c5a492a925db6ab3f8478e118336c722/packages/react-reconciler/src/ReactFiberHooks.new.js#L1883
+//
+// function updateCallback<T>(
+//   callback: T,
+//   deps: Array<mixed> | void | null
+// ): T {
+//   const hook = updateWorkInProgressHook();
+//   const nextDeps = deps === undefined ? null : deps;
+//   const prevState = hook.memoizedState;
+//   if (prevState !== null) {
+//     if (nextDeps !== null) {
+//       const prevDeps: Array<mixed> | null = prevState[1];
+//       if (areHookInputsEqual(nextDeps, prevDeps)) {
+//         return prevState[0];
+//       }
+//     }
+//   }
+//   hook.memoizedState = [callback, nextDeps];
+//   return callback;
+// }

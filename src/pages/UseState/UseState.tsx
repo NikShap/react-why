@@ -1,7 +1,7 @@
-import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
-import FastState from './FastState';
-import SlowState from './SlowState';
+import { Box, Divider, Typography } from '@mui/material';
+
+import { FastState, SlowState } from './components';
 
 const UseState = () => {
   return (
